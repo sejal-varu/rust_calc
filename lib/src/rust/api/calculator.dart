@@ -6,5 +6,5 @@
 import '../frb_generated.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
-String rustCalculate({required String exp, dynamic hint}) =>
+Future<String> rustCalculate({required String exp, dynamic hint}) =>
     RustLib.instance.api.rustCalculate(exp: exp, hint: hint);

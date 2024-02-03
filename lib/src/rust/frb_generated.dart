@@ -65,7 +65,7 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
 }
 
 abstract class RustLibApi extends BaseApi {
-  String rustCalculate({required String exp, dynamic hint});
+  Future<String> rustCalculate({required String exp, dynamic hint});
 
   String greet({required String name, dynamic hint});
 
@@ -81,12 +81,13 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   });
 
   @override
-  String rustCalculate({required String exp, dynamic hint}) {
-    return handler.executeSync(SyncTask(
-      callFfi: () {
+  Future<String> rustCalculate({required String exp, dynamic hint}) {
+    return handler.executeNormal(NormalTask(
+      callFfi: (port_) {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_String(exp, serializer);
-        return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 1)!;
+        pdeCallFfi(generalizedFrbRustBinding, serializer,
+            funcId: 1, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_String,

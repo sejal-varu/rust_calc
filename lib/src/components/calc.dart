@@ -14,10 +14,10 @@ class _RustCalculatorState extends State<RustCalculator> {
   String exp = '';
   String result = '';
 
-  void calculate() {
-    rustCalculate(exp: exp);
+  void calculate() async {
+    final String tmp = await rustCalculate(exp: exp);
     setState(() {
-      result = "100";
+      result = tmp;
     });
   }
 
@@ -31,7 +31,7 @@ class _RustCalculatorState extends State<RustCalculator> {
             decoration: const InputDecoration(
               prefixIcon: Icon(Icons.calculate_outlined),
               labelText: 'Your calculation expression',
-              hintText: '10+5-3',
+              hintText: '1 feet in inches',
               filled: true,
             ),
             onChanged: (String val) {
