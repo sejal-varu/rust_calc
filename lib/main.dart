@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rust_calc/src/rust/api/simple.dart';
+import 'package:rust_calc/src/components/calc.dart';
 import 'package:rust_calc/src/rust/frb_generated.dart';
 
 Future<void> main() async {
@@ -14,11 +14,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(title: const Text('flutter_rust_bridge quickstart')),
-        body: Center(
-          child: Text(
-              'Action: Call Rust `greet("Tom")`\nResult: `${greet(name: "Tom")}`'),
-        ),
+        appBar: AppBar(title: const Text('Flutter Rust Calculator')),
+        body: const Center(child: RustCalculator()),
       ),
     );
   }
